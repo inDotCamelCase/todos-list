@@ -3,13 +3,21 @@ import "./App.css";
 import Header from "./MyComponents/Header";
 import { Footer } from "./MyComponents/Footer";
 import { Todos } from "./MyComponents/Todos";
+import React, { useState } from "react";
 
 function App() {
-  const onDelete = () => {
-    console.log("I am on delete");
+  const onDelete = (todo) => {
+    console.log("I am on delete", todo);
+    setTodos(
+      todo.filter((e) => {
+        return e !== todo;
+      })
+    );
+    // let index = todos.indexOf(todo);
+    // todos.splice(index, 1);
   };
 
-  let todos = [
+  const [todos, setTodos] = useState([
     {
       srno: 1,
       title: "Go to the gym",
@@ -25,11 +33,12 @@ function App() {
       title: "Meditation",
       desc: "complete your daily meditation session",
     },
-  ];
+  ]);
+
   return (
     <>
       <Header title="MyTodosList" searchBar={true} />
-      <Todos todos={todos} onDelete={onDelete} />
+      <Todos todo={todos} onDelete={onDelete} />
       <Footer />
     </>
   );
